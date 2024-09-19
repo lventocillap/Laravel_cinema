@@ -22,9 +22,8 @@ class DetailSaleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sale_id' => ['required', 'exists:sale_id,id'],
-            'billboard_id'=>['required', 'exists:billboard_id,id'],
-            'seat_id' => ['required', 'exists:seat_id,id'],
+            'billboard_id'=>['required', 'exists:billboards,id'],
+            'seat_id' => ['required', 'exists:seats,id'],
             'price' => ['required', 'numeric', 'min:0']
         ];
     }

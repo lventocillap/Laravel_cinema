@@ -16,8 +16,13 @@ class Sale extends Model
         'total_price'
     ];
 
-    public function User()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function detailSale()
+    {
+        return $this->hasMany(DetailSale::class, 'sale_id');
     }
 }

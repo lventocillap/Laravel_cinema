@@ -16,17 +16,17 @@ class DetailSale extends Model
         'price',
     ];
 
-    public function Sale()
+    public function sale()
     {
-        return $this->hasOne(Sale::class);
+        return $this->belongsTo(Sale::class, 'sale_id');
     }
 
-    public function Billboard()
+    public function billboard()
     {
-        return $this->hasOne(Billboard::class);
+        return $this->belongsTo(Billboard::class, 'billboard_id');
     }
-
-    public function Seat(){
-        return $this->hasOne(Seat::class);
+    public function seat()
+    {
+        return $this->belongsTo(Seat::class,'seat_id');
     }
 }

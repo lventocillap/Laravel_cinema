@@ -14,10 +14,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RoomStatusesSeader::class,
-            MovieSeader::class,
+            MovieStatusesSeader::class,
             UserSeeder::class,
             RoomSeeder::class,
-            SeatSeeder::class
+            SeatSeeder::class,
+            
         ]);
         // User::factory(10)->create();
 

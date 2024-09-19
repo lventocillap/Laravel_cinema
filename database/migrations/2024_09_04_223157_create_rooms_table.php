@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('capacity');
             $table->foreignId('statuses_id')->constrained('room_statuses');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

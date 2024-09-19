@@ -19,7 +19,7 @@ class DetailSaleController extends Controller
         $sale = Sale::create([
             'user_id' => $user->id,
             'date' => now(),
-            'total_price' => $request->price,
+            'total_price' =>$request->price,
         ]);
 
         DetailSale::create([

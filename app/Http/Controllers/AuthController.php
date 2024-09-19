@@ -27,7 +27,7 @@ class AuthController extends Controller
         $payload = [
             'userId' => $user->id,
             'iat' => time(),
-            'exp' => time() + 300
+            'exp' => time() + 1200
         ];
         $token = JWT::encode($payload, config('services.JWT.key'), 'HS256');
         return new JsonResponse(['message' => 'Session started', 'token' => $token]);

@@ -15,8 +15,16 @@ class Room extends Model
         'statuses_id'
     ];
 
-    public function Room_statuses()
+    public function roomStatuses()
     {
         return $this->belongsTo(Room_statuses::class, 'statuses_id');
+    }
+    public function billboard()
+    {
+        return $this->hasMany(Billboard::class, 'billboard_id');
+    }
+    public function seat()
+    {
+        return $this->hasMany(Room::class, 'room_id');
     }
 }

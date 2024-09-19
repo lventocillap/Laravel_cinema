@@ -17,13 +17,16 @@ class Billboard extends Model
         'time_projection'
     ];
 
-    public function Movie()
+    public function movie()
     {
-        return $this->hasOne(Movie::class);
+        return $this->belongsTo(Movie::class,'movie_id');
     }
-
-    public function Room()
+    public function room()
     {
-        return $this->hasOne(Room::class);
+        return $this->belongsTo(Room::class, 'room_id');
+    }
+    public function detailSale()
+    {
+        return $this->hasMany(DetailSale::class, 'billboard_id');
     }
 }

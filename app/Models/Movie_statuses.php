@@ -13,7 +13,7 @@ class Movie_statuses extends Model
         'name'
     ];
 
-    public function Movie()
+    public function movie()
     {
         return $this->hasMany(Movie::class, 'status_id');
     }

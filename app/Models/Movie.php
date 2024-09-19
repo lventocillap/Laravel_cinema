@@ -22,4 +22,8 @@ class Movie extends Model
     {
         return $this->belongsTo(Movie_statuses::class, 'status_id');
     }
+    public function billboard()
+    {
+        return $this->hasMany(Billboard::class,'billboard_id');
+    }
 }

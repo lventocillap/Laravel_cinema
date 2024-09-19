@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Movie\StoreMovieRequest;
 use App\Http\Requests\Movie\UpdateMovieRequest;
+use App\Http\Resources\BillboardResource;
 use App\Http\Resources\MovieResource;
+use App\Models\Billboard;
 use App\Models\Movie;
 use Illuminate\Broadcasting\AnonymousEvent;
 use Illuminate\Http\JsonResponse;
@@ -20,8 +22,8 @@ class MovieController extends Controller
         // $movies = Movie::all(); 
         // return MovieResource::collection($movies);
 
-        $movies = Movie::with('movieStatus')->get();
-        return MovieResource::collection($movies);
+        $movies = Billboard::with(['movie','room'])->get();
+        return BillboardResource::collection($movies);
 
         // $movies = Movie ::with(['movieStatus' => function($query){
         //     $query->withTrashed();

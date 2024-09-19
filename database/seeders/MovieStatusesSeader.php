@@ -7,7 +7,7 @@ use App\Enums\MovieStatusesEnum;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class MovieSeader extends Seeder
+class MovieStatusesSeader extends Seeder
 {
     /**
      * Run the database seeds.

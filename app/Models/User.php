@@ -47,7 +47,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function Sale()
+    public function sale()
     {
         return $this->hasMany(Sale::class, 'user_id');
     }

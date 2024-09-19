@@ -14,7 +14,7 @@ class Room_statuses extends Model
         'name'
     ];
 
-    public function Room()
+    public function room()
     {
         return $this->hasMany(Room::class,'statuses_id');
     }
