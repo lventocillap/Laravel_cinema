@@ -13,7 +13,7 @@ class Seat extends Model
     protected $fillable = [
         'room_id',
         'nro_seat',
-        'status'
+        'status_id'
     ];
 
     public function room()
@@ -23,5 +23,9 @@ class Seat extends Model
     public function detailSale()
     {
         return $this->hasMany(DetailSale::class, 'seat_id');
+    }
+    public function status()
+    {
+        return $this->belongsTo(Seat::class,'status_id');
     }
 }

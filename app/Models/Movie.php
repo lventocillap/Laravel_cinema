@@ -20,7 +20,7 @@ class Movie extends Model
 
     public function movieStatus()
     {
-        return $this->belongsTo(Movie_statuses::class, 'status_id');
+        return $this->belongsTo(MovieStatuses::class, 'status_id');
     }
     public function billboard()
     {

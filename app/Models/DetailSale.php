@@ -13,7 +13,7 @@ class DetailSale extends Model
         'sale_id',
         'billboard_id',
         'seat_id',
-        'price',
+        'price_id',
     ];
 
     public function sale()
@@ -28,5 +28,9 @@ class DetailSale extends Model
     public function seat()
     {
         return $this->belongsTo(Seat::class,'seat_id');
+    }
+    public function price()
+    {
+        return $this->belongsTo(Price::class,'price_id');
     }
 }
