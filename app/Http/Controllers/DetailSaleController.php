@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DetailSale\DetailSaleRequest;
 use App\Models\DetailSale;
 use App\Models\Sale;
+use App\Services\Sale\SaleServices;
+use App\Services\Seat\SeatService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,21 +16,22 @@ class DetailSaleController extends Controller
 {
     public function store(DetailSaleRequest $request)
     {
-        $user = Auth::user();
+        $pricesId = $request->price_id;
+        $seatsId = $request->seat_id; 
+        $sale = SaleServices::SaleStore($request);
 
-        $sale = Sale::create([
-            'user_id' => $user->id,
-            'date' => now(),
-            'total_price' =>$request->price,
-        ]);
-
-        DetailSale::create([
-            'sale_id' => $sale->id,
-            'billboard_id' => $request->billboard_id,
-            'seat_id' => $request->seat_id,
-            'price' => $request->price,
-        ]);
-
+        if(count($pricesId) !== count($seatsId)){
+            return new JsonResponse(['message' => 'They are not the same']);
+        }
+        foreach($seatsId as $index => $seat){
+            DetailSale::create([
+                'sale_id' => $sale->id,
+                'billboard_id' => $request->billboard_id,
+                'seat_id' => $seat,
+                'price_id' => $pricesId[$index],
+            ]);
+        }
+        SeatService::seatStatusUpdate($request);
         return new JsonResponse(['mesage' => 'Inserted Sale'], Response::HTTP_CREATED);
     }
 }

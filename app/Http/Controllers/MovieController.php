@@ -21,19 +21,20 @@ class MovieController extends Controller
     {
         // $movies = Movie::all(); 
         // return MovieResource::collection($movies);
-
         $movies = Billboard::with(['movie','room'])->get();
         return BillboardResource::collection($movies);
-
         // $movies = Movie ::with(['movieStatus' => function($query){
         //     $query->withTrashed();
         // }])->get();
         // return MovieResource::collection($movies);
     }
 
-    public function show(Movie $movie): MovieResource
+    public function show(Movie $movieId)
     {
-        return new MovieResource($movie->load('movieStatus'));
+        if(!$movieId){
+            return new JsonResponse(['Not found Movie']);
+        }
+        return new MovieResource($movieId->load('movieStatus'));
     }
 
     public function store(StoreMovieRequest $request): JsonResponse
