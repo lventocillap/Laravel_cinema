@@ -5,24 +5,34 @@ use App\Http\Controllers\DetailSaleController;
 use App\Http\Controllers\MovieController;
 use App\Http\Middleware\Authentication;
 use App\Http\Middleware\DateMovieMiddleware;
+use App\Http\Middleware\MovieAthentication;
 use App\Http\Middleware\MovieMiddlware;
 use App\Http\Middleware\SaleUserMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Src\Movie\Infrastructure\Controller\MovieController as SrcMovieController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+// Route::group([
+//     'prefix' => 'movies',
+//     'controller' => MovieController::class,
+// ], static function (){
+//     Route::get('/','index');
+//     Route::get('/{movie}', 'show');
+//     Route::post('/', 'store');
+//     Route::patch('/{movie}', 'update');
+//     Route::delete('/{movie}', 'delete');
+// });
 Route::group([
     'prefix' => 'movies',
-    'controller' => MovieController::class,
+    'controller' => SrcMovieController::class,
 ], static function (){
     Route::get('/','index');
-    Route::get('/{movie}', 'show');
-    Route::post('/', 'store');
-    Route::patch('/{movie}', 'update');
-    Route::delete('/{movie}', 'delete');
+    Route::get('/{id}','show');
+    Route::post('/','store');
 });
 
 Route::group([
@@ -36,5 +46,5 @@ Route::group([
     'prefix' => 'sale',
     'controller' => DetailSaleController::class,
 ], static function(){
-    Route::post('/', 'store');
+    Route::post('/', 'store')->middleware(MovieAthentication::class);
 });
