@@ -24,11 +24,11 @@ enum SeatEnum:string
     public function status():string
     {
         return match($this){
-            self::seat1 => true,
-            self::seat2 => true,
-            self::seat3 => true,
-            self::seat4 => true,
-            self::seat5 => true,
+            self::seat1 => 1,
+            self::seat2 => 1,
+            self::seat3 => 1,
+            self::seat4 => 1,
+            self::seat5 => 1,
         };
     }
 }
