@@ -19,7 +19,7 @@ class SeatSeeder extends Seeder
             Seat::create([
                 'room_id' => $seat->roomId(),
                 'nro_seat' => $seat->value,
-                'status' => $seat->status()
+                'status_id' => $seat->status()
             ]);
         }
     }
