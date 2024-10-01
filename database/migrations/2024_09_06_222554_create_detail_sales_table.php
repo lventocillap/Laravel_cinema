@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detail_sales', function (Blueprint $table) {
-            $table->id()->autoIncrement();
+            $table->id();
             $table->foreignId('sale_id')->constrained('sales');
             $table->foreignId('billboard_id')->constrained('billboards');
             $table->foreignId('seat_id')->constrained('seats');
-            $table->decimal('price');
+            $table->foreignId('price_id')->constrained('prices');
             $table->timestamps();
             $table->softDeletes();
         });

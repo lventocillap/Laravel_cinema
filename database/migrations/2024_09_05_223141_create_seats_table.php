@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('room_id')->constrained('rooms');
             $table->string('nro_seat');
-            $table->boolean('status');
+            $table->foreignId('status_id')->constrained('seat_statuses');
             $table->timestamps();
             $table->softDeletes();
         });
