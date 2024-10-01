@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\DetailSale;
 
+use App\Rules\SeatAvaleableRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DetailSaleRequest extends FormRequest
@@ -23,8 +24,10 @@ class DetailSaleRequest extends FormRequest
     {
         return [
             'billboard_id'=>['required', 'exists:billboards,id'],
-            'seat_id' => ['required', 'exists:seats,id'],
-            'price' => ['required', 'numeric', 'min:0']
+            'seat_id'=>['required', 'array'],
+            'seat_id.*' => ['required', 'exists:seats,id', new SeatAvaleableRule()],
+            'price_id'=>['required','array'],
+            'price_id.*' => ['required', 'exists:prices,id']
         ];
     }
 }
