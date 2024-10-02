@@ -10,6 +10,7 @@ use App\Http\Middleware\MovieMiddlware;
 use App\Http\Middleware\SaleUserMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Src\DetailSale\Infrastructure\Controller\DetailSaleController as SrcDetailSaleController;
 use Src\Movie\Infrastructure\Controller\MovieController as SrcMovieController;
 
 Route::get('/user', function (Request $request) {
@@ -44,7 +45,7 @@ Route::group([
 
 Route::group([
     'prefix' => 'sale',
-    'controller' => DetailSaleController::class,
+    'controller' => SrcDetailSaleController::class,
 ], static function(){
-    Route::post('/', 'store')->middleware(MovieAthentication::class);
+    Route::post('/', 'newDetailSale')->middleware(MovieAthentication::class);
 });
