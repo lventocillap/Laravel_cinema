@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Movie_statuses;
+use App\Models\MovieStatuses;
 use App\Enums\MovieStatusesEnum;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,7 +16,7 @@ class MovieStatusesSeader extends Seeder
     {
         $movieStatuses = MovieStatusesEnum::cases();
         foreach($movieStatuses as $status){
-            Movie_statuses::create([
+            MovieStatuses::create([
                 'name' =>$status->value
             ]);
         }
