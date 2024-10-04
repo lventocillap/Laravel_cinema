@@ -7,10 +7,11 @@ use App\Models\Price;
 use App\Models\Sale as AppSale;
 use Illuminate\Support\Facades\Auth;
 use Src\Sale\Domain\Interface\SaleInterface;
+use Src\Sale\Domain\Model\Sale;
 
 class SaleEloquentPersistence implements SaleInterface
 {
-    public function newSale(array $priceIds): AppSale
+    public function newSale(array $priceIds): Sale
     {
         $total = 0;
         foreach($priceIds as $priceId){
@@ -21,9 +22,14 @@ class SaleEloquentPersistence implements SaleInterface
         }
         $sale = AppSale::create([
             'user_id' => Auth::user()->id,
-            'date' => now(),
+            'date' => '03-11-24',
             'total_price' => $total
         ]);
-        return $sale;
+        return new Sale(
+            $sale->id,
+            $sale->user_id,
+            $sale->date,
+            $sale->total_price
+        );
     }
 }

@@ -5,7 +5,7 @@ namespace Src\Movie\Domain\Exception;
 
 use Exception;
 
-class MovieNotFoundException extends Exception
+class MovieNotFound extends Exception
 {
     public function __construct()
     {

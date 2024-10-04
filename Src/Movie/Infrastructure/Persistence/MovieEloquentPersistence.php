@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Src\Movie\Infrastructure\Persistence;
 
 use App\Models\Movie as AppMovie;
-use Src\Movie\Domain\Exception\MovieNotFoundException;
+use Src\Movie\Domain\Exception\MovieNotFound;
 use Src\Movie\Domain\Interface\MovieInterface;
 use Src\Movie\Domain\Model\Movie;
 use Src\Movie\Domain\Model\Status;
@@ -35,7 +35,7 @@ class MovieEloquentPersistence implements MovieInterface
     {
         $movie = AppMovie::find($id);
         if(!$movie){
-            return throw new MovieNotFoundException;
+            return throw new MovieNotFound;
         }
         return new Movie(
             $movie->id,

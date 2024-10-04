@@ -22,7 +22,7 @@ class DetailSaleController
     {
         $sale = $this->createNewSale->execute($request->price_id);
         $this->newDetailSale->execute(new DetailSaleRequest(
-            $sale->id,
+            $sale->getId(),
             $request->billboard_id,
             $request->seat_id,
             $request->price_id
