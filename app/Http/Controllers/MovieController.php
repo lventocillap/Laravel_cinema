@@ -29,12 +29,12 @@ class MovieController extends Controller
         // return MovieResource::collection($movies);
     }
 
-    public function show(Movie $movieId)
+    public function show(Movie $id)
     {
-        if(!$movieId){
+        if(!$id){
             return new JsonResponse(['Not found Movie']);
         }
-        return new MovieResource($movieId->load('movieStatus'));
+        return new MovieResource($id->load('movieStatus'));
     }
 
     public function store(StoreMovieRequest $request): JsonResponse
