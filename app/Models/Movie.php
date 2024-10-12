@@ -26,4 +26,8 @@ class Movie extends Model
     {
         return $this->hasMany(Billboard::class,'billboard_id');
     }
+    public function image()
+    {
+        return $this->morphMany(Image::class, 'imageble');
+    }
 }
