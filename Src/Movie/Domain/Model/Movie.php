@@ -13,7 +13,7 @@ class Movie
         private string $gender,
         private string $time,
         private string $premiere,
-        private Status $movieStatus
+        private Status|int $movieStatus
     ) {}
     public function getId():int 
     {
@@ -35,7 +35,7 @@ class Movie
     {
         return $this->premiere;
     }
-    public function getStatusId():Status
+    public function getStatusId():Status|int
     {
         return $this->movieStatus;
     }

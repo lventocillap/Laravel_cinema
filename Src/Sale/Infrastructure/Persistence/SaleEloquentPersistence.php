@@ -22,7 +22,7 @@ class SaleEloquentPersistence implements SaleInterface
         }
         $sale = AppSale::create([
             'user_id' => Auth::user()->id,
-            'date' => '03-11-24',
+            'date' => now()->format('Y-m-d'),
             'total_price' => $total
         ]);
         return new Sale(
