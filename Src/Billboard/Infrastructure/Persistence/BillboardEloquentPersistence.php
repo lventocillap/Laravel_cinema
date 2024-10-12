@@ -6,6 +6,7 @@ namespace Src\Billboard\Infrastructure\Persistence;
 use App\Models\Billboard as AppBillboard;
 use Src\Billboard\Domain\Interface\BillboardInterface;
 use Src\Billboard\Domain\Model\Billboard;
+use Src\Movie\Domain\Model\Movie;
 
 class BillboardEloquentPersistence implements BillboardInterface
 {
@@ -22,5 +23,24 @@ class BillboardEloquentPersistence implements BillboardInterface
                 $billboard->end_date
             );
         })->toArray();
+    }
+    public function show($id): Billboard
+    {
+        $billboard = AppBillboard::find($id);
+        $movie = new Movie(
+            $billboard->movie->id,
+            $billboard->movie->title,
+            $billboard->movie->gender,
+            $billboard->movie->time,
+            $billboard->movie->premiere,
+            $billboard->movie->status_id
+        );
+        return new Billboard(
+            $billboard->id,
+            $movie,
+            $billboard->room_id,
+            $billboard->star_date,
+            $billboard->end_date
+        );
     }
 }
