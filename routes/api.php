@@ -47,7 +47,7 @@ Route::group([
     'prefix' => 'sale',
     'controller' => SrcDetailSaleController::class,
 ], static function(){
-    Route::post('/', 'newDetailSale')->middleware([MovieAthentication::class,SeatSaleAuthentication::class]);
+    Route::post('/', 'storeDetailSale')->middleware([MovieAthentication::class,SeatSaleAuthentication::class]);
 });
 Route::group([
     'prefix' => 'image',
