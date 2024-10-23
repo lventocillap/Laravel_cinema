@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Src\Billboard\Infrastructure\Persistence;
 
+use Src\Movie\Domain\Model\Movie;
+use Src\Billboard\Domain\Model\Billboard;
 use App\Models\Billboard as AppBillboard;
 use Src\Billboard\Domain\Interface\BillboardInterface;
-use Src\Billboard\Domain\Model\Billboard;
-use Src\Movie\Domain\Model\Movie;
 
 class BillboardEloquentPersistence implements BillboardInterface
 {
