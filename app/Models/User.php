@@ -3,10 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -47,11 +50,15 @@ class User extends Authenticatable
         ];
     }
 
-    public function sale()
+    // public function sale():HasMany
+    // {
+    //     return $this->hasMany(Sale::class, 'user_id');
+    // }
+    public function profile():HasOne
     {
-        return $this->hasMany(Sale::class, 'user_id');
+        return $this->hasOne(Profile::class,'user_id');
     }
-    public function image()
+    public function image():MorphOne
     {
         return $this->morphOne(Image::class, 'imageble');
     }
