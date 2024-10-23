@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Src\Movie\Infrastructure\Controller;
 
-use App\Http\Requests\Movie\StoreMovieRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Src\Movie\Application\DTO\MovieRequest;
 use Src\Movie\Application\UseCase\MovieGet;
+use App\Http\Requests\Movie\StoreMovieRequest;
 use Src\Movie\Application\UseCase\MovieGetAll;
 use Src\Movie\Application\UseCase\MovieInsert;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,11 +16,10 @@ use Symfony\Component\HttpFoundation\Response;
 class MovieController extends Controller
 {
     public function __construct(
-        private MovieGetAll $movieGetAll,
         private MovieGet $movieGet,
+        private MovieGetAll $movieGetAll,
         private MovieInsert $movieInsert,
     ) {}
-
     public function index(): JsonResponse
     {
         $getMoives = $this->movieGetAll->execute();
