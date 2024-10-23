@@ -7,5 +7,5 @@ use Src\Sale\Domain\Model\Sale;
 
 interface SaleInterface
 {
-    public function newSale(array $priceIds):Sale;
+    public function newSale(array $priceIds, int $profileId):Sale;
 }
