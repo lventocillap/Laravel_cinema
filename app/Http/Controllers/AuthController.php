@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
 use Exception;
+use App\Models\User;
 use Firebase\JWT\JWT;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use PhpParser\Node\Stmt\Return_;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
