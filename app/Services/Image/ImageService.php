@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace App\Services\Image;
 
 use Exception;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ImageService
 {
