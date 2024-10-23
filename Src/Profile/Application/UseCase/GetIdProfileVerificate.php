@@ -8,7 +8,7 @@ use Src\Profile\Application\DTO\IdProfileResponse;
 use Src\Profile\Application\DTO\ProfileDocumentNumberRequest;
 use Src\Profile\Domain\Interface\ProfileInterface;
 
-class GetIdProfileAuthentificate
+class GetIdProfileVerificate
 {
     public function __construct(
         private ProfileInterface $profileInterface
