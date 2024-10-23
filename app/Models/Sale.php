@@ -11,14 +11,14 @@ class Sale extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'user_id',
+        'client_id',
         'date',
         'total_price'
     ];
 
-    public function user()
+    public function client()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(Profile::class, 'client_id');
     }
 
     public function detailSale()
