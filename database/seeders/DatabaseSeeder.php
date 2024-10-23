@@ -18,11 +18,12 @@ class DatabaseSeeder extends Seeder
             MovieStatusesSeader::class,
             MovieSeeder::class,
             UserSeeder::class,
+            ProfileSeeder::class,
             RoomSeeder::class,
             SeatStatusesSeeder::class,
             SeatSeeder::class,
             PriceSeeder::class,
-            BillboardSeeder::class
+            BillboardSeeder::class,
         ]);
         // User::factory(10)->create();
 
