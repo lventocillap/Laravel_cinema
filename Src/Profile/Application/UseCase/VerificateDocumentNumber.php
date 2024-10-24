@@ -12,7 +12,7 @@ class VerificateDocumentNumber
     public function __construct(
         private ProfileInterface $profileInterface
     ) {}
-    public function execute(ProfileDocumentNumberRequest $request): string|bool
+    public function execute(ProfileDocumentNumberRequest $request): int
     {
         return $this->profileInterface->verificateProfile($request->documentNumber);
     }

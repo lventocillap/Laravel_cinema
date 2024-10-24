@@ -13,17 +13,17 @@ use Symfony\Component\Translation\Provider\ProviderInterface;
 
 class ProfileEloquentPersistence implements ProfileInterface
 {
-    public function verificateProfile(string $documentNumber): string|bool
+    public function verificateProfile(string $documentNumber): int
     {
         $userId = Auth::user()->id;
         $user = AppProfile::where('document_number', $documentNumber)->where('user_id', $userId)->exists();
         $profile = AppProfile::where('document_number', $documentNumber)->where('user_id', null)->exists();
         if ($user) {
-            return true;
-        } elseif (!$profile) {
-            return false;
-        } else {
-            return 'none';
+            return 1;
+        } elseif ($profile) {
+            return 2;
+        }else{
+            return 3;
         }
     }
     public function storeProfileIndependent(string $documentNumber, string $cellphone, string $emailVerification, string $name): Profile
