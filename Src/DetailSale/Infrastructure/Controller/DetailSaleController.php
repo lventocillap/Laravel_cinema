@@ -4,73 +4,37 @@ declare(strict_types=1);
 
 namespace Src\DetailSale\Infrastructure\Controller;
 
-use App\Http\Requests\DetailSale\DetailSaleRequest as AppDetailSaleRequest;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Src\DetailSale\Application\UseCase\NewDetailSale;
+use Illuminate\Http\JsonResponse;
 use Src\DetailSale\Utils\CreateDetailSale;
 use Src\Profile\Application\DTO\ProfileDocumentNumberRequest;
-use Src\Profile\Application\DTO\ProfileIndependentRequest;
-use Src\Profile\Application\UseCase\CreateProfileIndependent;
-use Src\Profile\Application\UseCase\GetIdProfile;
-use Src\Profile\Application\UseCase\GetIdProfileVerificate;
 use Src\Profile\Application\UseCase\VerificateDocumentNumber;
-use Src\Sale\Application\UseCase\CreateNewSale;
-use Src\Seat\Application\DTO\SeatAvalaibleRequest;
-use Src\Seat\Application\UseCase\UpdatesSeatsStatus;
+use Src\DetailSale\Infrastructure\SaleStrategy\Handler\SaleHandler;
+use Src\DetailSale\Infrastructure\SaleStrategy\Strategy\NoneProfile;
+use Src\DetailSale\Infrastructure\SaleStrategy\Strategy\VerifiedProfile;
+use Src\DetailSale\Infrastructure\SaleStrategy\Strategy\UnverifiedProfile;
+
 
 class DetailSaleController
 {
     use CreateDetailSale;
     public function __construct(
-        private GetIdProfile $getIdProfile,
-        private NewDetailSale $newDetailSale,
-        private CreateNewSale $createNewSale,
-        private UpdatesSeatsStatus $updatesSeatsStatus,
-        private CreateProfileIndependent $createProfileIndependent,
+        private SaleHandler $saleHandler,
         private VerificateDocumentNumber $verificateDocumentNumber,
-        private GetIdProfileVerificate $getIdProfileAuthentificate,
     ) {}
     public function storeDetailSale(Request $request): JsonResponse
     {
         $validation = $this->verificateDocumentNumber->execute(new ProfileDocumentNumberRequest($request->Profile['DNI']));
-        if($validation === 'none'){
-            DB::transaction(function () use ($request) {
-                $profileId = $this->getIdProfile->execute(new ProfileDocumentNumberRequest($request->Profile['DNI']))->id;
-                $saleId = $this->createNewSale->execute($request->price_id, $profileId)->id;
-                $this->executeCreateDetailSale($this->newDetailSale, $request, $saleId);
-                $this->updatesSeatsStatus->execute(new SeatAvalaibleRequest($request->seat_id));
-            });
-            return new JsonResponse([
-                'message' => 'create new Sale'
-            ]);
-        }elseif($validation){
-            DB::transaction(function () use ($request) {
-                $profileId = $this->getIdProfileAuthentificate->execute(new ProfileDocumentNumberRequest($request->Profile['DNI']))->id;
-                $saleId = $this->createNewSale->execute($request->price_id, $profileId)->id;
-                $this->executeCreateDetailSale($this->newDetailSale, $request, $saleId);
-                $this->updatesSeatsStatus->execute(new SeatAvalaibleRequest($request->seat_id));
-            });
-            return new JsonResponse([
-                'message' => ['Create new Sale', 'User authtentificate']
-            ]);
-        }elseif(!$validation){
-            DB::transaction(function () use ($request) {
-                $profileId = $this->createProfileIndependent->execute(new ProfileIndependentRequest(
-                    $request->Profile['DNI'],
-                    $request->Profile['cellphone'],
-                    $request->Profile['email'],
-                    $request->Profile['name']
-                ))->id;
-                $saleId = $this->createNewSale->execute($request->price_id, $profileId)->id;
-                $this->executeCreateDetailSale($this->newDetailSale, $request, $saleId);
-                $this->updatesSeatsStatus->execute(new SeatAvalaibleRequest($request->seat_id));
-            });
-            return new JsonResponse([
-                'message' => ['Create new Profile','Create new Sale']
-            ]);
+        switch ($validation) {
+            case 1:
+                $this->saleHandler->setStrategySalClass(VerifiedProfile::class);
+                return $this->saleHandler->porcessSale($request);
+            case 2:
+                $this->saleHandler->setStrategySalClass(UnverifiedProfile::class);
+                return $this->saleHandler->porcessSale($request);
+            case 3:
+                $this->saleHandler->setStrategySalClass(NoneProfile::class);
+                return $this->saleHandler->porcessSale($request);
         }
-        
     }
 }
