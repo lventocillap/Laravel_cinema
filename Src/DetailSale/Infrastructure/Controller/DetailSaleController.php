@@ -27,13 +27,13 @@ class DetailSaleController
         $validation = $this->verificateDocumentNumber->execute(new ProfileDocumentNumberRequest($request->Profile['DNI']));
         switch ($validation) {
             case 1:
-                $this->saleHandler->setStrategySalClass(VerifiedProfile::class);
+                $this->saleHandler->setStrategySaleClass(VerifiedProfile::class);
                 return $this->saleHandler->porcessSale($request);
             case 2:
-                $this->saleHandler->setStrategySalClass(UnverifiedProfile::class);
+                $this->saleHandler->setStrategySaleClass(UnverifiedProfile::class);
                 return $this->saleHandler->porcessSale($request);
             case 3:
-                $this->saleHandler->setStrategySalClass(NoneProfile::class);
+                $this->saleHandler->setStrategySaleClass(NoneProfile::class);
                 return $this->saleHandler->porcessSale($request);
         }
     }

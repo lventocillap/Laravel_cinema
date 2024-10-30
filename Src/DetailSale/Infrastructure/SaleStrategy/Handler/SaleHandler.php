@@ -17,7 +17,7 @@ class SaleHandler
     {
         return $this->strategySaleInterface->registerSale($request);
     }
-    public function setStrategySalClass(string $class): void
+    public function setStrategySaleClass(string $class): void
     {
         $this->strategySaleInterface = Container::getInstance()->make($class);
     }
