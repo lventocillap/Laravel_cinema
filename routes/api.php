@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CookiesController;
 use App\Http\Controllers\DetailSaleController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MovieController;
 use App\Http\Middleware\Authentication;
+use App\Http\Middleware\CookieMiddleware;
 use App\Http\Middleware\DateMovieMiddleware;
 use App\Http\Middleware\MovieAthentication;
 use App\Http\Middleware\MovieMiddlware;
@@ -37,12 +39,14 @@ Route::group([
     Route::get('/{id}','show');
     Route::post('/','store');
 });
-Route::group([
-    'prefix' => 'login',
-    'controller' => AuthController::class,
-], static function(){
-    Route::post('/', 'login')->withoutMiddleware(Authentication::class);
-});
+// Route::group([
+//     'prefix' => 'login',
+//     'controller' => AuthController::class,
+// ], static function(){
+//     Route::post('/', 'login')->withoutMiddleware(Authentication::class);
+// });
+Route::post('/login', [CookiesController::class, 'login'])->withoutMiddleware(CookieMiddleware::class);
+Route::post('/logout', [CookiesController::class, 'logout']);
 Route::group([
     'prefix' => 'sale',
     'controller' => SrcDetailSaleController::class,
